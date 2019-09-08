@@ -28,7 +28,8 @@ function setup() {
   // frameRate(5);
 
   // socket = io.connect("https://drawing-demo.herokuapp.com/"); 
-  socket = io.connect("http://192.168.86.115:8080");
+  // socket = io.connect("http://192.168.86.115:8080");
+  socket = io.connect("https://deco3200prototype.herokuapp.com/");
 
   socket.on('mouse', newmouseDragged);
   socket.on('style',newmouseDragged);
