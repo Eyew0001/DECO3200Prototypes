@@ -18,7 +18,7 @@ var lerpX = 0;
 var lerpY = 0;
 
 function setup() {
-  createCanvas(320, 240);
+  createCanvas(480,360);
   pixelDensity(1);
   video = createCapture(VIDEO);
   video.size(width, height);
@@ -63,13 +63,14 @@ function draw() {
       // If the color at that pixel has changed, then there is motion at that pixel.
       if (diff > threshold) { 
         // If motion, display black
-        //pixels[loc] = 0;
-        //pixels[loc+1] = 0;
-        //pixels[loc+2] = 0;
+        // pixels[loc] = 0;
+        // pixels[loc+1] = 0;
+        // pixels[loc+2] = 0;
+        // pixels[loc+3] = 255;
         avgX += x;
         avgY += y;
         count++;
-        pixels[loc+3] = 255;
+        
       } else {
         // If not, display white
         pixels[loc] = 255;
@@ -85,14 +86,14 @@ function draw() {
   //if (video.canvas) {
     prevFrame.copy(video, 0, 0, video.width, video.height, 0, 0, video.width, video.height); // Before we read the new frame, we always save the previous frame for comparison!
   //}
-  console.log(count);
-  if (count > 20) { 
+  // console.log(count);
+  if (count > 200) { 
     motionX = avgX / count;
     motionY = avgY / count;
     // Draw a circle at the tracked pixel
   }
-  lerpX = lerp(lerpX, motionX, 0.1); 
-  lerpY = lerp(lerpY, motionY, 0.1); 
+  lerpX = lerp(lerpX, motionX, 0.6); 
+  lerpY = lerp(lerpY, motionY, 0.6); 
   
   fill(255, 0, 255);
   strokeWeight(2.0);

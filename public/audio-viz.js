@@ -1,5 +1,8 @@
 var mic;
 
+
+
+
 function setup() {
   createCanvas(960, 960);
   mic = new p5.AudioIn();
@@ -48,27 +51,27 @@ function Particle(x, y, level) {
 
 
 var vol;
+var volarray = [];
 
 function draw() {
   touchStarted();
   vol = mic.getLevel();
+  volarray.push(Math.round (vol * 100) / 100 );
 
   // Create fade effect.
   noStroke();
   fill(0, 30);
   rect(0, 0, width, height);
-  console.log(frameCount);
+  // console.log(frameCount);
 
   if (vol > 0.03) {
     console.log(vol);
     called = true;
     drawstuff();
   }
-  if (frameCount % 100 == 0) {
-    called = false;
-  }
+ 
 
-  if (called) {
+  
     // Move and spawn particles.
     // Remove any that is below the velocity threshold.
     for (var i = allParticles.length - 1; i > -1; i--) {
@@ -128,7 +131,7 @@ function draw() {
       }
 
 
-    }
+    
   
     
   }
@@ -144,8 +147,7 @@ function draw() {
  
 
 }
-var start = false;
-var called = false;
+
 
 function touchStarted() {
   if (getAudioContext().state !== 'running') {
@@ -154,9 +156,11 @@ function touchStarted() {
 }
 
 function drawstuff() {
-
-    var volbig = vol * 10000;
-    allParticles.push(new Particle(volbig + random(10), volbig + random(10), volbig));
+  var num = Math.floor(Math.random() * (-700 - 700 + 1) ) + 700;
+  var numy = Math.floor(Math.random() * (-700 - 700 + 1) ) + 700;
+  if (volarray[volarray.length-1] != volarray[volarray.length-2]) {
+    allParticles.push(new Particle(vol*10000 + num, vol*10000 + numy, 5));
+  }
 
 
 }
